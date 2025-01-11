@@ -151,7 +151,7 @@ fn main() {
     // Collect all information lines
     let info_lines = vec![
         user_info.bright_green().to_string(),
-        "-".repeat(user_info.len()),
+        "━".repeat(user_info.len()),
         system_info,
         cpu_info,
         memory_info,
