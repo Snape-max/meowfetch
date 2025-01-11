@@ -1,6 +1,19 @@
 use sysinfo::System;
 use colored::*;
 use std::env;
+use std::net::UdpSocket;
+use std::time::Duration;
+
+
+fn get_local_ip() -> Option<String> {
+    let socket = UdpSocket::bind("0.0.0.0:0").ok()?;
+    socket.set_read_timeout(Some(Duration::from_secs(1))).ok()?;
+    socket.set_write_timeout(Some(Duration::from_secs(1))).ok()?;
+    if socket.connect("8.8.8.8:80").is_err() {
+        return None; 
+    }
+    socket.local_addr().ok().map(|addr| addr.ip().to_string())
+}
 
 fn main() {
     // Parse command-line arguments
@@ -129,6 +142,12 @@ fn main() {
         "███".white()
     );
 
+    // Get local IP address
+    let ip_info = match get_local_ip() {
+        Some(ip) => format!("{}: {}", "ipv4".bright_blue(), ip),
+        None => "".to_string(), 
+    };
+
     // Collect all information lines
     let info_lines = vec![
         user_info.bright_green().to_string(),
@@ -137,7 +156,7 @@ fn main() {
         cpu_info,
         memory_info,
         swap_info,
-        "".to_string(),
+        ip_info,
         bright_colors,
         dark_colors,
     ];
