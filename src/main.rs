@@ -49,11 +49,15 @@ fn main() {
     let cat_art_lines: Vec<&str> = cat_art.lines().collect();
     let cat_art_height = cat_art_lines.len();
 
+    // Get system name and OS version, or use "Unknown" if unavailable
+    let system_name = System::name().unwrap_or("Unknown".to_string());
+    let os_version = System::os_version().unwrap_or("Unknown".to_string());
+
     let system_info = format!(
         "{}: {} {}",
         "sys ".bright_blue(),
-        System::name().unwrap(),
-        System::os_version().unwrap()
+        system_name,
+        os_version
     );
 
     // Colorize the labels and their values
