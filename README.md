@@ -18,12 +18,12 @@ Alternatively, you can download a pre-compiled binary from the [releases page](h
 To run Meowfetch, simply type `meowfetch` in your terminal.
 Here is an example output of Meowfetch:
 
-![meowfetch](https://github.com/Snape-max/meowfetch/blob/main/assets/display1.png?raw=true)
+![meowfetch](./asset/display1.png)
 
 
 You can also use the `-t` flag to display another type of cat logo.
 
-![meowfetch](https://github.com/Snape-max/meowfetch/blob/main/assets/display2.png?raw=true)
+![meowfetch](./asset/display2.png)
 
 
 
