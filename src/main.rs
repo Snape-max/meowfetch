@@ -161,6 +161,6 @@ fn main() {
     for i in 0..info_height {
         let cat_line = &padded_cat_art_lines[i];
         let info_line = &info_lines[i];
-        println!("{:<20} {}", cat_line, info_line);
+        println!("{:<18} {}", cat_line, info_line);
     }
 }
