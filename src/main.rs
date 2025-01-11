@@ -1,5 +1,4 @@
 use sysinfo::System;
-use raw_cpuid::CpuId;
 use colored::*;
 use std::env;
 
@@ -36,9 +35,12 @@ fn main() {
     let used_swap_gb = sys.used_swap() as f64 / (1024.0 * 1024.0 * 1024.0);
     let swap_percentage = (used_swap_gb / total_swap_gb) * 100.0;
 
-    // Get CPU information
-    let cpuid = CpuId::new();
-    let binding = cpuid.get_processor_brand_string().unwrap();
+    // Get CPU information using sysinfo
+    let cpu_name = if let Some(cpu) = sys.cpus().first() {
+        cpu.brand().to_string()
+    } else {
+        "Unknown CPU".to_string()
+    };
 
     // Get user and host information
     let user_info = format!("{}{}{}", whoami::username(), "@", System::host_name().unwrap());
@@ -58,12 +60,12 @@ fn main() {
     let cpu_info = format!(
         "{}: {}",
         "cpu ".bright_blue(),
-        binding.as_str()
+        cpu_name
     );
 
     // Function to colorize percentage based on value
     fn colorize_percentage(percentage: f64) -> ColoredString {
-        let percentage_str = format!("{:.1}%", percentage);
+        let percentage_str = format!("({:.1}%)", percentage);
         if percentage < 50.0 {
             percentage_str.green()
         } else if percentage >= 50.0 && percentage < 90.0 {
@@ -74,7 +76,7 @@ fn main() {
     }
 
     let memory_status = format!(
-        "{:.2} >> {:.2} GB ({})",
+        "{:.2} >> {:.2} GB {}",
         used_memory_gb,
         total_memory_gb,
         colorize_percentage(memory_percentage)
@@ -87,7 +89,7 @@ fn main() {
     );
 
     let swap_status = format!(
-        "{:.2} >> {:.2} GB ({})",
+        "{:.2} >> {:.2} GB {}",
         used_swap_gb,
         total_swap_gb,
         colorize_percentage(swap_percentage)
@@ -155,6 +157,6 @@ fn main() {
     for i in 0..info_height {
         let cat_line = &padded_cat_art_lines[i];
         let info_line = &info_lines[i];
-        println!("{:<18} {}", cat_line, info_line);
+        println!("{:<20} {}", cat_line, info_line);
     }
 }

@@ -6,5 +6,4 @@ edition = "2021"
 [dependencies]
 sysinfo = "0.33"
 whoami = "*"
-raw-cpuid = "*"
-colored = "*"
+colored = "2.2.0"
