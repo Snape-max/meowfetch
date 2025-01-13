@@ -88,8 +88,14 @@ fn get_local_ip() -> Option<String> {
 fn get_disk_info() -> String {
     let disks = Disks::new_with_refreshed_list();
     let mut disk_info = Vec::new();
+    let mut disk_count = 0;
 
     for disk in disks.list() {
+
+        if disk_count >= 5 {
+            break;
+        }
+
         // Get the disk mount point
         let mount_point = disk.mount_point().to_string_lossy().to_string();
 
@@ -119,6 +125,7 @@ fn get_disk_info() -> String {
         );
 
         disk_info.push(info);
+        disk_count += 1;
     }
 
     disk_info.join("\n")
@@ -294,7 +301,7 @@ fn main() {
     // Get local IP address
     let ip_info = match get_local_ip() {
         Some(ip) => format!("{}: {}", "ipv4".bright_blue(), ip),
-        None => "".to_string(), 
+        None => format!("{}: {}", "ipv4".bright_blue(), "unknown"), 
     };
 
     let disk_info = get_disk_info();
