@@ -231,8 +231,8 @@ fn main() {
 
 
     // Get system name and OS version, or use "Unknown" if unavailable
-    let system_name = System::name().unwrap_or("Unknown".to_string());
-    let os_version = System::os_version().unwrap_or("Unknown".to_string());
+    let system_name = System::name().unwrap_or("unknown".to_string());
+    let os_version = System::os_version().unwrap_or("unknown".to_string());
 
     let system_info = format!(
         "{}: {} {}",
