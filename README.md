@@ -1,6 +1,6 @@
 # Meowfetch
 
-Meowfetch is a simple and lightweight system information tool written in Rust. It displays various system details such as the operating system, kernel version, hostname, username, CPU, memory and swap usage.
+Meowfetch is a simple and lightweight system information tool written in Rust. It displays various system details such as the operating system, kernel version, hostname, username, cpu, memory and swap usage, ip address, and more.
 
 ## Installation
 
@@ -25,6 +25,21 @@ You can also use the `-t` flag to display another type of cat logo.
 
 ![meowfetch](./asset/display2.png)
 
+
+![meowfetch](./asset/display3.png)
+
+## Customization
+
+You can customize the Logo of Meowfetch by modifying the `.meowrc` file at `$HOME/.config/.meowrc`, by [this tool](https://github.com/Snape-max/terminal_art_creator).
+
+
+Just draw the logo on the website and touch the export button to copy the string and then paste it to the `.meowrc` file. 
+
+![Website](./asset/tool.png)
+
+Then run `meowfetch` to see the changes.
+
+![meowfetch](./asset/display5.png)
 
 
 ## Contributing
